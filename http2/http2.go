@@ -18,7 +18,7 @@ package http2
 
 import (
 	"bufio"
-	tls "github.com/Carcraftz/utls"
+	tls "github.com/EmpowerZ/utls"
 	"fmt"
 	"io"
 	"os"
@@ -27,7 +27,7 @@ import (
 	"strings"
 	"sync"
 
-	http "github.com/Carcraftz/fhttp"
+	http "github.com/EmpowerZ/fhttp"
 
 	"golang.org/x/net/http/httpguts"
 )

@@ -7,10 +7,10 @@
 package http2
 
 import (
-	tls "github.com/Carcraftz/utls"
+	tls "github.com/EmpowerZ/utls"
 	"sync"
 
-	http "github.com/Carcraftz/fhttp"
+	http "github.com/EmpowerZ/fhttp"
 )
 
 // ClientConnPool manages a pool of HTTP/2 client connections.

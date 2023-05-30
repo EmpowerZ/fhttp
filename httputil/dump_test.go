@@ -18,7 +18,7 @@ import (
 	"testing"
 	"time"
 
-	http "github.com/Carcraftz/fhttp"
+	http "github.com/EmpowerZ/fhttp"
 )
 
 type eofReader struct{}

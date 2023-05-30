@@ -74,8 +74,8 @@ import (
 	"strings"
 	"time"
 
-	http "github.com/Carcraftz/fhttp"
-	"github.com/Carcraftz/fhttp/internal/profile"
+	http "github.com/EmpowerZ/fhttp"
+	"github.com/EmpowerZ/fhttp/internal/profile"
 )
 
 func init() {

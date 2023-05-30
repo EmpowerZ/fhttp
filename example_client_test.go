@@ -1,7 +1,7 @@
 package http_test
 
 import (
-	tls "github.com/Carcraftz/utls"
+	tls "github.com/EmpowerZ/utls"
 	"crypto/x509"
 	"encoding/json"
 	"flag"
@@ -12,8 +12,8 @@ import (
 	"strings"
 	"testing"
 
-	http "github.com/Carcraftz/fhttp"
-	"github.com/Carcraftz/fhttp/http2"
+	http "github.com/EmpowerZ/fhttp"
+	"github.com/EmpowerZ/fhttp/http2"
 )
 
 // Basic http test with Header Order + enable push

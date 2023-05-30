@@ -12,7 +12,7 @@ import (
 	"compress/gzip"
 	"compress/zlib"
 	"context"
-	tls "github.com/Carcraftz/utls"
+	tls "github.com/EmpowerZ/utls"
 	"encoding/json"
 	"errors"
 	"fmt"
@@ -36,11 +36,11 @@ import (
 	"testing"
 	"time"
 
-	. "github.com/Carcraftz/fhttp"
-	"github.com/Carcraftz/fhttp/httptest"
-	"github.com/Carcraftz/fhttp/httputil"
-	"github.com/Carcraftz/fhttp/internal"
-	"github.com/Carcraftz/fhttp/internal/testenv"
+	. "github.com/EmpowerZ/fhttp"
+	"github.com/EmpowerZ/fhttp/httptest"
+	"github.com/EmpowerZ/fhttp/httputil"
+	"github.com/EmpowerZ/fhttp/internal"
+	"github.com/EmpowerZ/fhttp/internal/testenv"
 )
 
 type dummyAddr string

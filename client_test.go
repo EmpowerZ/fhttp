@@ -9,7 +9,7 @@ package http_test
 import (
 	"bytes"
 	"context"
-	tls "github.com/Carcraftz/utls"
+	tls "github.com/EmpowerZ/utls"
 	"encoding/base64"
 	"errors"
 	"fmt"
@@ -25,9 +25,9 @@ import (
 	"testing"
 	"time"
 
-	. "github.com/Carcraftz/fhttp"
-	"github.com/Carcraftz/fhttp/cookiejar"
-	"github.com/Carcraftz/fhttp/httptest"
+	. "github.com/EmpowerZ/fhttp"
+	"github.com/EmpowerZ/fhttp/cookiejar"
+	"github.com/EmpowerZ/fhttp/httptest"
 )
 
 var robotsTxtHandler = HandlerFunc(func(w ResponseWriter, r *Request) {

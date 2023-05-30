@@ -22,7 +22,7 @@ package main
 import (
 	"bufio"
 	"bytes"
-	tls "github.com/Carcraftz/utls"
+	tls "github.com/EmpowerZ/utls"
 	"errors"
 	"flag"
 	"fmt"
@@ -35,8 +35,8 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/Carcraftz/fhttp/http2"
-	"github.com/Carcraftz/fhttp/http2/hpack"
+	"github.com/EmpowerZ/fhttp/http2"
+	"github.com/EmpowerZ/fhttp/http2/hpack"
 	"golang.org/x/term"
 )
 

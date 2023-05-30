@@ -15,7 +15,7 @@ import (
 	"compress/gzip"
 	"context"
 	"crypto/rand"
-	tls "github.com/Carcraftz/utls"
+	tls "github.com/EmpowerZ/utls"
 	"crypto/x509"
 	"encoding/binary"
 	"errors"
@@ -38,12 +38,12 @@ import (
 	"testing/iotest"
 	"time"
 
-	. "github.com/Carcraftz/fhttp"
-	"github.com/Carcraftz/fhttp/httptest"
-	"github.com/Carcraftz/fhttp/httptrace"
-	"github.com/Carcraftz/fhttp/httputil"
-	"github.com/Carcraftz/fhttp/internal"
-	"github.com/Carcraftz/fhttp/internal/nettrace"
+	. "github.com/EmpowerZ/fhttp"
+	"github.com/EmpowerZ/fhttp/httptest"
+	"github.com/EmpowerZ/fhttp/httptrace"
+	"github.com/EmpowerZ/fhttp/httputil"
+	"github.com/EmpowerZ/fhttp/internal"
+	"github.com/EmpowerZ/fhttp/internal/nettrace"
 
 	"golang.org/x/net/http/httpguts"
 )

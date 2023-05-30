@@ -11,7 +11,7 @@ import (
 	"compress/gzip"
 	"crypto/rand"
 	"crypto/sha1"
-	tls "github.com/Carcraftz/utls"
+	tls "github.com/EmpowerZ/utls"
 	"fmt"
 	"hash"
 	"io"
@@ -28,9 +28,9 @@ import (
 	"testing"
 	"time"
 
-	. "github.com/Carcraftz/fhttp"
-	"github.com/Carcraftz/fhttp/httptest"
-	"github.com/Carcraftz/fhttp/httputil"
+	. "github.com/EmpowerZ/fhttp"
+	"github.com/EmpowerZ/fhttp/httptest"
+	"github.com/EmpowerZ/fhttp/httputil"
 )
 
 type clientServerTest struct {

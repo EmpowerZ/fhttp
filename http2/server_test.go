@@ -9,7 +9,7 @@ import (
 	"compress/gzip"
 	"compress/zlib"
 	"context"
-	tls "github.com/Carcraftz/utls"
+	tls "github.com/EmpowerZ/utls"
 	"errors"
 	"flag"
 	"fmt"
@@ -28,8 +28,8 @@ import (
 	"testing"
 	"time"
 
-	http "github.com/Carcraftz/fhttp"
-	"github.com/Carcraftz/fhttp/httptest"
+	http "github.com/EmpowerZ/fhttp"
+	"github.com/EmpowerZ/fhttp/httptest"
 
 	"golang.org/x/net/http2/hpack"
 )

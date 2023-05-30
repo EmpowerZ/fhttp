@@ -5,14 +5,14 @@
 package httptest
 
 import (
-	tls "github.com/Carcraftz/utls"
+	tls "github.com/EmpowerZ/utls"
 	"io"
 	"net/url"
 	"reflect"
 	"strings"
 	"testing"
 
-	http "github.com/Carcraftz/fhttp"
+	http "github.com/EmpowerZ/fhttp"
 )
 
 func TestNewRequest(t *testing.T) {

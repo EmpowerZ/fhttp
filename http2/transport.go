@@ -11,7 +11,7 @@ import (
 	"bytes"
 	"context"
 	"crypto/rand"
-	tls "github.com/Carcraftz/utls"
+	tls "github.com/EmpowerZ/utls"
 	"errors"
 	"fmt"
 	"io"
@@ -28,10 +28,10 @@ import (
 	"sync/atomic"
 	"time"
 
-	http "github.com/Carcraftz/fhttp"
-	"github.com/Carcraftz/fhttp/httptrace"
+	http "github.com/EmpowerZ/fhttp"
+	"github.com/EmpowerZ/fhttp/httptrace"
 
-	"github.com/Carcraftz/fhttp/http2/hpack"
+	"github.com/EmpowerZ/fhttp/http2/hpack"
 	"golang.org/x/net/http/httpguts"
 	"golang.org/x/net/idna"
 )

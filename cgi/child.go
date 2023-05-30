@@ -9,7 +9,7 @@ package cgi
 
 import (
 	"bufio"
-	tls "github.com/Carcraftz/utls"
+	tls "github.com/EmpowerZ/utls"
 	"errors"
 	"fmt"
 	"io"
@@ -19,7 +19,7 @@ import (
 	"strconv"
 	"strings"
 
-	http "github.com/Carcraftz/fhttp"
+	http "github.com/EmpowerZ/fhttp"
 )
 
 // Request returns the HTTP request as represented in the current
