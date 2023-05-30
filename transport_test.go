@@ -15,7 +15,7 @@ import (
 	"compress/gzip"
 	"context"
 	"crypto/rand"
-	tls "github.com/EmpowerZ/utls"
+	tls "github.com/Carcraftz/utls"
 	"crypto/x509"
 	"encoding/binary"
 	"errors"

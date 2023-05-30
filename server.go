@@ -10,7 +10,7 @@ import (
 	"bufio"
 	"bytes"
 	"context"
-	tls "github.com/EmpowerZ/utls"
+	tls "github.com/Carcraftz/utls"
 	"errors"
 	"fmt"
 	"io"

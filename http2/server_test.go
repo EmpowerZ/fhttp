@@ -9,7 +9,7 @@ import (
 	"compress/gzip"
 	"compress/zlib"
 	"context"
-	tls "github.com/EmpowerZ/utls"
+	tls "github.com/Carcraftz/utls"
 	"errors"
 	"flag"
 	"fmt"

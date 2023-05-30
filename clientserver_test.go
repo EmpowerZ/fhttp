@@ -11,7 +11,7 @@ import (
 	"compress/gzip"
 	"crypto/rand"
 	"crypto/sha1"
-	tls "github.com/EmpowerZ/utls"
+	tls "github.com/Carcraftz/utls"
 	"fmt"
 	"hash"
 	"io"

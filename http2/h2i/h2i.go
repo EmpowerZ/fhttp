@@ -22,7 +22,7 @@ package main
 import (
 	"bufio"
 	"bytes"
-	tls "github.com/EmpowerZ/utls"
+	tls "github.com/Carcraftz/utls"
 	"errors"
 	"flag"
 	"fmt"

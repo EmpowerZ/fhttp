@@ -7,7 +7,7 @@ package main
 import (
 	"bytes"
 	"context"
-	tls "github.com/EmpowerZ/utls"
+	tls "github.com/Carcraftz/utls"
 	"flag"
 	"fmt"
 	"hash/crc32"

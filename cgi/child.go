@@ -9,7 +9,7 @@ package cgi
 
 import (
 	"bufio"
-	tls "github.com/EmpowerZ/utls"
+	tls "github.com/Carcraftz/utls"
 	"errors"
 	"fmt"
 	"io"
