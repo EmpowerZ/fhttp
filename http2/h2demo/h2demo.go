@@ -7,9 +7,9 @@ package main
 import (
 	"bytes"
 	"context"
-	tls "github.com/Carcraftz/utls"
 	"flag"
 	"fmt"
+	tls "github.com/EmpowerZ/utls"
 	"hash/crc32"
 	"image"
 	"image/jpeg"

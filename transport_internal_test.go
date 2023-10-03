@@ -8,9 +8,9 @@ package http
 
 import (
 	"bytes"
-	tls "github.com/Carcraftz/utls"
 	"errors"
 	"fmt"
+	tls "github.com/EmpowerZ/utls"
 	"io"
 	"io/ioutil"
 	"net"

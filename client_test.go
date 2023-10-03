@@ -9,10 +9,10 @@ package http_test
 import (
 	"bytes"
 	"context"
-	tls "github.com/Carcraftz/utls"
 	"encoding/base64"
 	"errors"
 	"fmt"
+	tls "github.com/EmpowerZ/utls"
 	"io"
 	"log"
 	"net"

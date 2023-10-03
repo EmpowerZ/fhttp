@@ -18,8 +18,8 @@ package http2
 
 import (
 	"bufio"
-	tls "github.com/Carcraftz/utls"
 	"fmt"
+	tls "github.com/EmpowerZ/utls"
 	"io"
 	"os"
 	"sort"

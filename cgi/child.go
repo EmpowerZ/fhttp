@@ -9,9 +9,9 @@ package cgi
 
 import (
 	"bufio"
-	tls "github.com/Carcraftz/utls"
 	"errors"
 	"fmt"
+	tls "github.com/EmpowerZ/utls"
 	"io"
 	"net"
 	"net/url"

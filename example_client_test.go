@@ -1,11 +1,11 @@
 package http_test
 
 import (
-	tls "github.com/Carcraftz/utls"
 	"crypto/x509"
 	"encoding/json"
 	"flag"
 	"fmt"
+	tls "github.com/EmpowerZ/utls"
 	"io"
 	"net/url"
 	"os"

@@ -2,12 +2,12 @@ package http2_test
 
 import (
 	"bytes"
-	tls "github.com/Carcraftz/utls"
 	"crypto/x509"
 	"errors"
 	"fmt"
 	"github.com/EmpowerZ/fhttp/cookiejar"
 	"github.com/EmpowerZ/fhttp/httptest"
+	tls "github.com/EmpowerZ/utls"
 	"golang.org/x/net/publicsuffix"
 	"log"
 	ghttp "net/http"
