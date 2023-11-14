@@ -86,22 +86,29 @@ func (p *clientConnPool) getClientConn(req *http.Request, addr string, dialOnMis
 		return cc, nil
 	}
 	p.mu.Lock()
+	mutexUnlocked := false
+	funcUnlockMutexOnce := func() {
+		if !mutexUnlocked {
+			mutexUnlocked = true
+			p.mu.Unlock()
+		}
+	}
+	defer funcUnlockMutexOnce()
+
 	for _, cc := range p.conns[addr] {
 		if st := cc.idleState(); st.canTakeNewRequest {
 			if p.shouldTraceGetConn(st) {
 				traceGetConn(req, addr)
 			}
-			p.mu.Unlock()
 			return cc, nil
 		}
 	}
 	if !dialOnMiss {
-		p.mu.Unlock()
 		return nil, ErrNoCachedConn
 	}
 	traceGetConn(req, addr)
 	call := p.getStartDialLocked(addr)
-	p.mu.Unlock()
+	funcUnlockMutexOnce()
 	<-call.done
 	return call.res, call.err
 }
@@ -137,11 +144,11 @@ func (c *dialCall) dial(addr string) {
 	close(c.done)
 
 	c.p.mu.Lock()
+	defer c.p.mu.Unlock()
 	delete(c.p.dialing, addr)
 	if c.err == nil {
 		c.p.addConnLocked(addr, c.res)
 	}
-	c.p.mu.Unlock()
 }
 
 // addConnIfNeeded makes a NewClientConn out of c if a connection for key doesn't
@@ -154,9 +161,17 @@ func (c *dialCall) dial(addr string) {
 // c is never closed.
 func (p *clientConnPool) addConnIfNeeded(key string, t *Transport, c *tls.Conn) (used bool, err error) {
 	p.mu.Lock()
+	mutexUnlocked := false
+	funcUnlockMutexOnce := func() {
+		if !mutexUnlocked {
+			mutexUnlocked = true
+			p.mu.Unlock()
+		}
+	}
+	defer funcUnlockMutexOnce()
+
 	for _, cc := range p.conns[key] {
 		if cc.CanTakeNewRequest() {
-			p.mu.Unlock()
 			return false, nil
 		}
 	}
@@ -172,7 +187,7 @@ func (p *clientConnPool) addConnIfNeeded(key string, t *Transport, c *tls.Conn) 
 		p.addConnCalls[key] = call
 		go call.run(t, key, c)
 	}
-	p.mu.Unlock()
+	funcUnlockMutexOnce()
 
 	<-call.done
 	if call.err != nil {
@@ -193,13 +208,22 @@ func (c *addConnCall) run(t *Transport, key string, tc *tls.Conn) {
 
 	p := c.p
 	p.mu.Lock()
+	mutexUnlocked := false
+	funcUnlockMutexOnce := func() {
+		if !mutexUnlocked {
+			mutexUnlocked = true
+			p.mu.Unlock()
+		}
+	}
+	defer funcUnlockMutexOnce()
+
 	if err != nil {
 		c.err = err
 	} else {
 		p.addConnLocked(key, cc)
 	}
 	delete(p.addConnCalls, key)
-	p.mu.Unlock()
+	funcUnlockMutexOnce()
 	close(c.done)
 }
 
