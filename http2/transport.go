@@ -1146,17 +1146,33 @@ func (cc *ClientConn) roundTrip(req *http.Request) (res *http.Response, gotErrAf
 
 	defer func() {
 		cc.wmu.Lock()
+		mutexUnlocked := false
+		funcUnlockMutexOnce := func() {
+			if !mutexUnlocked {
+				mutexUnlocked = true
+				cc.wmu.Unlock()
+			}
+		}
+		defer funcUnlockMutexOnce()
 		werr := cc.werr
-		cc.wmu.Unlock()
+		funcUnlockMutexOnce()
 		if werr != nil {
 			cc.Close()
 		}
 	}()
 
 	cc.wmu.Lock()
+	mutexUnlocked := false
+	funcUnlockMutexOnce := func() {
+		if !mutexUnlocked {
+			mutexUnlocked = true
+			cc.wmu.Unlock()
+		}
+	}
+	defer funcUnlockMutexOnce()
 	endStream := !hasBody && !hasTrailers
 	werr := cc.writeHeaders(cs.ID, endStream, int(cc.maxFrameSize), hdrs)
-	cc.wmu.Unlock()
+	funcUnlockMutexOnce()
 	traceWroteHeaders(cs.trace)
 	cc.mu.Unlock()
 
@@ -1405,6 +1421,14 @@ func (cs *clientStream) writeRequestBody(body io.Reader, bodyCloser io.Closer) (
 	remainLen := actualContentLength(req)
 	hasContentLen := remainLen != -1
 
+	mutexUnlocked := false
+	funcUnlockMutexOnce := func() {
+		if !mutexUnlocked {
+			mutexUnlocked = true
+			cc.wmu.Unlock()
+		}
+	}
+
 	var sawEOF bool
 	for !sawEOF {
 		n, err := body.Read(buf[:len(buf)-1])
@@ -1450,6 +1474,7 @@ func (cs *clientStream) writeRequestBody(body io.Reader, bodyCloser io.Closer) (
 				return err
 			}
 			cc.wmu.Lock()
+			mutexUnlocked = false
 			data := remain[:allowed]
 			remain = remain[allowed:]
 			sentEnd = sawEOF && len(remain) == 0 && !hasTrailers
@@ -1463,7 +1488,7 @@ func (cs *clientStream) writeRequestBody(body io.Reader, bodyCloser io.Closer) (
 				// If we change this, see comment below.
 				err = cc.bw.Flush()
 			}
-			cc.wmu.Unlock()
+			funcUnlockMutexOnce()
 		}
 		if err != nil {
 			return err
@@ -1494,7 +1519,8 @@ func (cs *clientStream) writeRequestBody(body io.Reader, bodyCloser io.Closer) (
 	cc.mu.Unlock()
 
 	cc.wmu.Lock()
-	defer cc.wmu.Unlock()
+	defer funcUnlockMutexOnce()
+	mutexUnlocked = false
 
 	// Two ways to send END_STREAM: either with trailers, or
 	// with an empty DATA frame.
@@ -1882,8 +1908,8 @@ func (cc *ClientConn) readLoop() {
 	cc.readerErr = rl.run()
 	if ce, ok := cc.readerErr.(ConnectionError); ok {
 		cc.wmu.Lock()
+		defer cc.wmu.Unlock()
 		cc.fr.WriteGoAway(0, ErrCode(ce), nil)
-		cc.wmu.Unlock()
 	}
 }
 
@@ -2309,6 +2335,14 @@ func (b transportResponseBody) Close() error {
 	if unread > 0 || !serverSentStreamEnd {
 		cc.mu.Lock()
 		cc.wmu.Lock()
+		mutexUnlocked := false
+		funcUnlockMutexOnce := func() {
+			if !mutexUnlocked {
+				mutexUnlocked = true
+				cc.wmu.Unlock()
+			}
+		}
+		defer funcUnlockMutexOnce()
 		if !serverSentStreamEnd {
 			cc.fr.WriteRSTStream(cs.ID, ErrCodeCancel)
 			cs.didReset = true
@@ -2319,7 +2353,7 @@ func (b transportResponseBody) Close() error {
 			cc.fr.WriteWindowUpdate(0, uint32(unread))
 		}
 		cc.bw.Flush()
-		cc.wmu.Unlock()
+		funcUnlockMutexOnce()
 		cc.mu.Unlock()
 	}
 
@@ -2355,9 +2389,9 @@ func (rl *clientConnReadLoop) processData(f *DataFrame) error {
 			cc.mu.Unlock()
 
 			cc.wmu.Lock()
+			defer cc.wmu.Unlock()
 			cc.fr.WriteWindowUpdate(0, uint32(f.Length))
 			cc.bw.Flush()
-			cc.wmu.Unlock()
 		}
 		return nil
 	}
@@ -2404,13 +2438,21 @@ func (rl *clientConnReadLoop) processData(f *DataFrame) error {
 		if refund > 0 {
 			cc.inflow.add(int32(refund))
 			cc.wmu.Lock()
+			mutexUnlocked := false
+			funcUnlockMutexOnce := func() {
+				if !mutexUnlocked {
+					mutexUnlocked = true
+					cc.wmu.Unlock()
+				}
+			}
+			defer funcUnlockMutexOnce()
 			cc.fr.WriteWindowUpdate(0, uint32(refund))
 			if !didReset {
 				cs.inflow.add(int32(refund))
 				cc.fr.WriteWindowUpdate(cs.ID, uint32(refund))
 			}
 			cc.bw.Flush()
-			cc.wmu.Unlock()
+			funcUnlockMutexOnce()
 		}
 		cc.mu.Unlock()
 
@@ -2592,15 +2634,23 @@ func (cc *ClientConn) Ping(ctx context.Context) error {
 		cc.mu.Unlock()
 	}
 	cc.wmu.Lock()
+	mutexUnlocked := false
+	funcUnlockMutexOnce := func() {
+		if !mutexUnlocked {
+			mutexUnlocked = true
+			cc.wmu.Unlock()
+		}
+	}
+	defer funcUnlockMutexOnce()
 	if err := cc.fr.WritePing(false, p); err != nil {
-		cc.wmu.Unlock()
+		funcUnlockMutexOnce()
 		return err
 	}
 	if err := cc.bw.Flush(); err != nil {
-		cc.wmu.Unlock()
+		funcUnlockMutexOnce()
 		return err
 	}
-	cc.wmu.Unlock()
+	funcUnlockMutexOnce()
 	select {
 	case <-c:
 		return nil
@@ -2713,10 +2763,10 @@ func (cc *ClientConn) writeStreamReset(streamID uint32, code ErrCode, err error)
 	// RST_STREAM there's no equivalent to GOAWAY frame's debug
 	// data, and the error codes are all pretty vague ("cancel").
 	cc.wmu.Lock()
+	defer cc.wmu.Unlock()
 	fmt.Printf("reset err %v StreamID: %v\n", code, streamID)
 	cc.fr.WriteRSTStream(streamID, code)
 	cc.bw.Flush()
-	cc.wmu.Unlock()
 }
 
 var (
