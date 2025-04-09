@@ -12,7 +12,7 @@ import (
 	"errors"
 	"flag"
 	"fmt"
-	tls "github.com/EmpowerZ/utls"
+	tls "github.com/refraction-networking/utls"
 	"io"
 	"io/ioutil"
 	"log"

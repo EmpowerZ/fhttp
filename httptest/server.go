@@ -10,7 +10,7 @@ import (
 	"crypto/x509"
 	"flag"
 	"fmt"
-	tls "github.com/EmpowerZ/utls"
+	tls "github.com/refraction-networking/utls"
 	"log"
 	"net"
 	"os"

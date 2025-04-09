@@ -11,7 +11,7 @@ import (
 	"bufio"
 	"errors"
 	"fmt"
-	tls "github.com/EmpowerZ/utls"
+	tls "github.com/refraction-networking/utls"
 	"io"
 	"net"
 	"net/url"

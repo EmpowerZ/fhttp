@@ -13,7 +13,7 @@ import (
 	"encoding/base64"
 	"errors"
 	"fmt"
-	tls "github.com/EmpowerZ/utls"
+	tls "github.com/refraction-networking/utls"
 	"io"
 	"mime"
 	"mime/multipart"

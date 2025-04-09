@@ -19,7 +19,7 @@ import (
 	"encoding/binary"
 	"errors"
 	"fmt"
-	tls "github.com/EmpowerZ/utls"
+	tls "github.com/refraction-networking/utls"
 	"go/token"
 	"io"
 	"log"

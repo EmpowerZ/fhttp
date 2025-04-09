@@ -9,7 +9,7 @@ import (
 	"context"
 	"flag"
 	"fmt"
-	tls "github.com/EmpowerZ/utls"
+	tls "github.com/refraction-networking/utls"
 	"hash/crc32"
 	"image"
 	"image/jpeg"

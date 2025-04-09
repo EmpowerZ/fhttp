@@ -7,7 +7,7 @@ import (
 	"fmt"
 	"github.com/EmpowerZ/fhttp/cookiejar"
 	"github.com/EmpowerZ/fhttp/httptest"
-	tls "github.com/EmpowerZ/utls"
+	tls "github.com/refraction-networking/utls"
 	"golang.org/x/net/publicsuffix"
 	"log"
 	ghttp "net/http"

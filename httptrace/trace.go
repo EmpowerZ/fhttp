@@ -8,7 +8,7 @@ package httptrace
 
 import (
 	"context"
-	tls "github.com/EmpowerZ/utls"
+	tls "github.com/refraction-networking/utls"
 	"net"
 	"net/textproto"
 	"reflect"

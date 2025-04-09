@@ -12,7 +12,7 @@ import (
 	"crypto/rand"
 	"crypto/sha1"
 	"fmt"
-	tls "github.com/EmpowerZ/utls"
+	tls "github.com/refraction-networking/utls"
 	"hash"
 	"io"
 	"log"

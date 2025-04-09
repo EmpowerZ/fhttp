@@ -7,7 +7,7 @@
 package http2
 
 import (
-	tls "github.com/EmpowerZ/utls"
+	tls "github.com/refraction-networking/utls"
 	"sync"
 
 	http "github.com/EmpowerZ/fhttp"
